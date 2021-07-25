@@ -24,22 +24,68 @@ import java.sql.Connection;
  */
 public interface SqlSessionFactory {
 
+  /***
+   * 打开一个 SqlSession(默认)
+   * @return
+   */
   SqlSession openSession();
 
+  /***
+   * 打开一个 SqlSession 指定这个 SqlSession 是否自动提交
+   * @param autoCommit
+   * @return
+   */
   SqlSession openSession(boolean autoCommit);
 
+  /***
+   * 打开一个 SqlSession 指定这个 SqlSession 连接
+   * @param connection
+   * @return
+   */
   SqlSession openSession(Connection connection);
 
+  /***
+   * 打开一个 SqlSession 指定这个 SqlSession 的隔离级别
+   * @param level
+   * @return
+   */
   SqlSession openSession(TransactionIsolationLevel level);
 
+  /***
+   * 打开一个 SqlSession 指定这个 SqlSession 执行器类型
+   * @param execType
+   * @return
+   */
   SqlSession openSession(ExecutorType execType);
 
+  /***
+   * 打开一个 SqlSession 指定这个 SqlSession 执行器类型 ,是否自动提交
+   * @param execType
+   * @param autoCommit
+   * @return
+   */
   SqlSession openSession(ExecutorType execType, boolean autoCommit);
 
+  /***
+   * 打开一个 SqlSession 指定这个 SqlSession 执行器类型 ,隔离级别
+   * @param execType
+   * @param level
+   * @return
+   */
   SqlSession openSession(ExecutorType execType, TransactionIsolationLevel level);
 
+  /***
+   * 打开一个 SqlSession 指定这个 SqlSession 执行器类型 ,连接
+   * @param execType
+   * @param connection
+   * @return
+   */
   SqlSession openSession(ExecutorType execType, Connection connection);
 
+  /***
+   * 获取Configuration配置
+   * @return
+   */
   Configuration getConfiguration();
 
 }

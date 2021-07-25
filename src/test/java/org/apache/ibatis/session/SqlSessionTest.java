@@ -66,6 +66,7 @@ class SqlSessionTest extends BaseDataTest {
     createBlogDataSource();
     final String resource = "org/apache/ibatis/builder/MapperConfig.xml";
     final Reader reader = Resources.getResourceAsReader(resource);
+    //  创建一个 SqlSessionFactory
     sqlMapper = new SqlSessionFactoryBuilder().build(reader);
   }
 

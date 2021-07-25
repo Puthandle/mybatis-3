@@ -42,6 +42,10 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     this.configuration = configuration;
   }
 
+  /***
+   * 打开默认 SqlSession
+   * @return
+   */
   @Override
   public SqlSession openSession() {
     return openSessionFromDataSource(configuration.getDefaultExecutorType(), null, false);
@@ -87,6 +91,13 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     return configuration;
   }
 
+  /***
+   * 从数据源获取一个 DefaultSqlSession
+   * @param execType 执行器类型
+   * @param level   隔离级别
+   * @param autoCommit 是否自动提交
+   * @return
+   */
   private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit) {
     Transaction tx = null;
     try {

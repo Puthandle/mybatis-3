@@ -72,9 +72,18 @@ public class SqlSessionFactoryBuilder {
     return build(inputStream, null, properties);
   }
 
+  /***
+   * 创建一个 SqlSessionFactory 接受三个参数，inputStream, environment, properties
+   * @param inputStream
+   * @param environment
+   * @param properties
+   * @return
+   */
   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
+      // 构建一个XML解析器
       XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+      // parser.parse() 将 xml 文件流解析成为配置类对象
       return build(parser.parse());
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error building SqlSession.", e);
@@ -88,6 +97,11 @@ public class SqlSessionFactoryBuilder {
     }
   }
 
+  /**
+   * 返回一个 DefaultSqlSessionFactory
+   * @param config 配置
+   * @return
+   */
   public SqlSessionFactory build(Configuration config) {
     return new DefaultSqlSessionFactory(config);
   }
