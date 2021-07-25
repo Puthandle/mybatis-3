@@ -664,17 +664,29 @@ public class Configuration {
     return newExecutor(transaction, defaultExecutorType);
   }
 
+  /***
+   * 根据执行器类型创建香瓜执行器
+   * @param transaction
+   * @param executorType 默认为 ExecutorType.SIMPLE
+   * @return
+   */
   public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
     executorType = executorType == null ? defaultExecutorType : executorType;
     executorType = executorType == null ? ExecutorType.SIMPLE : executorType;
     Executor executor;
+    //  批处理执行器
     if (ExecutorType.BATCH == executorType) {
       executor = new BatchExecutor(this, transaction);
-    } else if (ExecutorType.REUSE == executorType) {
+    }
+    //  复用执行器
+    else if (ExecutorType.REUSE == executorType) {
       executor = new ReuseExecutor(this, transaction);
-    } else {
+    }
+    //  简单执行器
+    else {
       executor = new SimpleExecutor(this, transaction);
     }
+    // 如果二级缓存打开，将以执行器委托给 cache executor
     if (cacheEnabled) {
       executor = new CachingExecutor(executor);
     }

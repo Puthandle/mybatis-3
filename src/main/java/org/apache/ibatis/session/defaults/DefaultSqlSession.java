@@ -145,9 +145,19 @@ public class DefaultSqlSession implements SqlSession {
     return selectList(statement, parameter, rowBounds, Executor.NO_RESULT_HANDLER);
   }
 
+  /***
+   * select 操作都会调用到 selectList（） 公共操作、
+   * @param statement 执行sql
+   * @param parameter sql参数
+   * @param rowBounds 分页，默认不分页 offset 0 limit 0
+   * @param handler 结果集处理器
+   * @param <E> 返回结果集
+   * @return
+   */
   private <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler) {
     try {
       MappedStatement ms = configuration.getMappedStatement(statement);
+      // 交由 executor 执行查询操作
       return executor.query(ms, wrapCollection(parameter), rowBounds, handler);
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error querying database.  Cause: " + e, e);
